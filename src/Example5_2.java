@@ -2,18 +2,22 @@
 
 public class Example5_2 {
     public static void main(String[] args) {
-        Node head = new Node(0, null);
+        Node head = null;
         Node tail;
-        Node ref = head;
+        Node ref;
 
-        for (int i = 1; i <= 9; i++){
+        for (int i = 0; i <= 9; i++){
             tail = new Node(i, null);
+            if (i == 0){
+                head = tail;
+                continue;
+            }
+            ref = head;
             while (ref.next != null){
                ref = ref.next;
             }
             ref.next = tail;
         }
-
 
         while (head != null){
             System.out.print(" " + head.value);
