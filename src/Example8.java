@@ -7,10 +7,10 @@ public class Example8 {
         Node head2 = createTail(size);
 
         int newValue = 9;
-        System.out.print("Для первого списка:   ");
+        System.out.println("Для первого списка:   ");
         head1 = AddFirst(head1, newValue);
         head1 = Insert(head1, newValue, 3);
-        System.out.print("Для второго списка:   ");
+        System.out.println("Для второго списка:   ");
         AddLast(head2, newValue);
 
         System.out.println("ToString. значения первого списка:");
@@ -25,6 +25,21 @@ public class Example8 {
         RemoveLast(head1);
         System.out.println("ToString. значения первого списка:");
         System.out.println(toString(head1));
+        head1 = RemovePosition(head1, 1);
+        System.out.println("ToString. значения первого списка:");
+        System.out.println(toString(head1));
+
+        System.out.println("Удалим второй список.");
+        head2 = Remove();
+        if (head2 == null){
+            System.out.println("Список удален");
+        }
+
+        //Node head3 = null;
+        System.out.println("CreateHeadRec. Введите " + size + " значений (от первого к последнему):");
+        Node head3 = createHeadRec(null, size);
+        System.out.println("ToString. значения третьего списка:");
+        System.out.println(toString(head3));
     }
 
     public static Node createHead(int count){
@@ -70,12 +85,12 @@ public class Example8 {
     }
 
     public static Node AddFirst(Node head, int value){
-        System.out.println("Добавляем в начало списка узел со значением " + value);
+        System.out.println("AddFirst. Добавляем в начало списка узел со значением " + value);
         return new Node(value, head);
     }
 
     public static void AddLast(Node head, int value){
-        System.out.println("Добавляем в конец списка узел со значением " + value);
+        System.out.println("AddLast. Добавляем в конец списка узел со значением " + value);
         while (head.next != null){
             head = head.next;
         }
@@ -83,13 +98,13 @@ public class Example8 {
     }
 
     public static Node Insert(Node head, int value, int position){
-        System.out.println("Вставляем новый узел со значением " + value + " на позицию " + position);
+        System.out.println("Insert. Вставляем новый узел со значением " + value + " на позицию " + position);
         if (position == 1){
             head = new Node(value, head);
             return head;
         }
         Node ref = head;
-        for (int i = 0; i < position - 1; i++){//А если вставляется первый элемент???
+        for (int i = 0; i < position - 1; i++){
             if (i == position - 2){
                 ref.next = new Node(value, ref.next);
                 return head;
@@ -100,13 +115,13 @@ public class Example8 {
     }
 
     public static Node RemoveFirst(Node head){
-        System.out.println("Удаляем первый элемент списка");
+        System.out.println("RemoveFirst. Удаляем первый элемент списка");
         head = head.next;
         return head;
     }
 
     public static void RemoveLast(Node head){
-        System.out.println("Удаляем последний элемент списка");
+        System.out.println("RemoveLast. Удаляем последний элемент списка");
         while (head.next.next != null){
             head = head.next;
         }
@@ -114,7 +129,11 @@ public class Example8 {
     }
 
     public static Node RemovePosition(Node head, int position){
-        System.out.println("Удаляем элемент под номером " + position);
+        System.out.println("RemovePosition. Удаляем элемент под номером " + position);
+        if (position == 1){
+            head = head.next;
+            return head;
+        }
         Node ref = head;
         for (int i = 0; i <= position - 1; i++){
             if (i >= position - 2){
@@ -125,5 +144,35 @@ public class Example8 {
             }
         }
         return head;
+    }
+
+    public static Node Remove(){
+        System.out.println("Remove. Удаление списка");
+        return null;
+    }
+
+    public static Node createHeadRec(Node head, int count){
+        Scanner in = new Scanner(System.in);
+        Node ref;
+
+        if (count > 1){
+            head = createHeadRec(head,count - 1);
+        }
+        int value = in.nextInt();
+        if (count == 1){
+            head = new Node(value, null);
+
+        } else {
+            ref = head;
+            while (ref.next != null){
+                ref = ref.next;
+            }
+            ref.next = new Node(value, null);
+        }
+        return head;
+    }
+
+    public static Node createTailRec(){
+        return null;
     }
 }
