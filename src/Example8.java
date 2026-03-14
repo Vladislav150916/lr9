@@ -38,8 +38,13 @@ public class Example8 {
         //Node head3 = null;
         System.out.println("CreateHeadRec. Введите " + size + " значений (от первого к последнему):");
         Node head3 = createHeadRec(null, size);
-        System.out.println("ToString. значения третьего списка:");
-        System.out.println(toString(head3));
+        System.out.println("ToStringRec. значения третьего списка:");
+        System.out.println(toStringRec(head3));
+
+        System.out.println("CreateTailRec. Введите " + size + " значений (от последнего к первому):");
+        Node head4 = createTailRec(null, size);
+        System.out.println("ToStringRec. значения четвертого списка:");
+        System.out.println(toStringRec(head4));
     }
 
     public static Node createHead(int count){
@@ -161,7 +166,6 @@ public class Example8 {
         int value = in.nextInt();
         if (count == 1){
             head = new Node(value, null);
-
         } else {
             ref = head;
             while (ref.next != null){
@@ -172,7 +176,27 @@ public class Example8 {
         return head;
     }
 
-    public static Node createTailRec(){
-        return null;
+    public static Node createTailRec(Node head, int count){
+        Scanner in = new Scanner(System.in);
+        Node ref = null;
+        if (count > 1){
+            head = createTailRec(head, count - 1);
+        }
+        int value = in.nextInt();
+        if (count == 1) {
+            head = new Node(value, null);
+        } else {
+            head = new Node(value, head);
+        }
+        return head;
+    }
+
+    public static String toStringRec(Node head){
+        StringBuilder sb = new StringBuilder();
+        sb.append(head.value);
+        if (head.next != null){
+            sb.append(toStringRec(head.next));
+        }
+        return sb.toString();
     }
 }
